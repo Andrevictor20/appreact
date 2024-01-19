@@ -1,45 +1,41 @@
 import React from "react";
-const produtos = [
-  {
-    id: 1,
-    nome: "Smartphone",
-    preco: 2000,
-    cores: ["#29d8d5", "#252a34", "#fc3766"],
-  },
-  {
-    id: 2,
-    nome: "Notebook",
-    preco: 3000,
-    cores: ["#ffd045", "#d4394b", "#f37c59"],
-  },
-  {
-    id: 3,
-    nome: "Tablet",
-    preco: 1500,
-    cores: ["#365069", "#47c1c8", "#f95786"],
-  },
-];
-
 const App = () => {
-  const dados = produtos.filter(({ preco }) => preco > 1500);
+  const luana = {
+    cliente: "Luana",
+    idade: 27,
+    compras: [
+      { nome: "Notebook", preco: 2499 },
+      { nome: "Geladeira", preco: 3000 },
+      { nome: "Smartphone", preco: 1500 },
+    ],
+    ativa: true,
+  };
+  const mario = {
+    cliente: "Mario",
+    idade: 31,
+    compras: [
+      { nome: "Notebook", preco: 2499 },
+      { nome: "Geladeira", preco: 3000 },
+      { nome: "Smartphone", preco: 1500 },
+      { nome: "TV", preco: 3600 },
+    ],
+    ativa: false,
+  };
+  const dados = mario;
+  const total = dados.compras.reduce((soma, item) => soma + item.preco, 0);
   return (
-    <section>
-      <h1>Produtos</h1>
-      {dados.map(({ id, nome, preco, cores }) => (
-        <div key={id}>
-          <h2>{nome}</h2>
-          <p>Preço: R${preco}</p>
-          <ul>
-          <p>#Cores Disponíveis:</p>
-            {cores.map((cor) => (
-              <li style={{ backgroundColor: cor, color: "white" }} key={cor}>
-                {cor}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </section>
+    <>
+      <p>Nome: {dados.cliente}</p>
+      <p>Idade: {dados.idade}</p>
+      <p>
+        Situação: {""}
+        <span style={{ color: dados.ativa ? "green" : "red" }}>
+          {dados.ativa ? "Ativa" : "Inativa"}
+        </span>
+      </p>
+      <p>Total gasto: R$ {total}</p>
+      <p>{total > 10000 && "Você está gastando muito"}</p>
+    </> 
   );
 };
 
