@@ -1,45 +1,21 @@
 import React from "react";
-const produtos = [
-  {
-    id: 1,
-    nome: "Smartphone",
-    preco: 2000,
-    cores: ["#29d8d5", "#252a34", "#fc3766"],
-  },
-  {
-    id: 2,
-    nome: "Notebook",
-    preco: 3000,
-    cores: ["#ffd045", "#d4394b", "#f37c59"],
-  },
-  {
-    id: 3,
-    nome: "Tablet",
-    preco: 1500,
-    cores: ["#365069", "#47c1c8", "#f95786"],
-  },
-];
+import Home from "./Home";
+import Produtos from "./Produtos";
+import Header from "./Header";
 
 const App = () => {
-  const dados = produtos.filter(({ preco }) => preco > 1500);
+  let Pagina;
+  const { pathname } = window.location;
+  if (pathname === "/produtos") {
+    Pagina = Produtos;
+  } else {
+    Pagina = Home;
+  }
   return (
-    <section>
-      <h1>Produtos</h1>
-      {dados.map(({ id, nome, preco, cores }) => (
-        <div key={id}>
-          <h2>{nome}</h2>
-          <p>Preço: R${preco}</p>
-          <ul>
-          <p>#Cores Disponíveis:</p>
-            {cores.map((cor) => (
-              <li style={{ backgroundColor: cor, color: "white" }} key={cor}>
-                {cor}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </section>
+    <>
+      <Header />
+      <Pagina />
+    </>
   );
 };
 
