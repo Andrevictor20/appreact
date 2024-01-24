@@ -1,20 +1,17 @@
-import React from 'react';
+import React from "react";
 
-const Radio = ({ options, value, setValue, ...props }) => {
+const Radio = ({ pergunta, options, id }) => {
   return (
     <>
-      {options.map((option) => (
-        <label key={option}>
-          <input
-            type="radio"
-            value={option}
-            checked={value === option}
-            onChange={({ target }) => setValue(target.value)}
-            {...props}
-          />
-          {option}
-        </label>
-      ))}
+      <fieldset>
+        <legend>{pergunta}</legend>
+        {options.map((option) => (
+          <label key={option}>
+            <input type="radio" value={option} />
+            {option}
+          </label>
+        ))}
+      </fieldset>
     </>
   );
 };
