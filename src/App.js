@@ -1,49 +1,50 @@
 import React from "react";
 import Input from "./Forms/Input";
-import Select from "./Forms/Select";
-import Radio from "./Forms/Radio";
-import Checkbox from "./Forms/Checkbox";
 
 const App = () => {
-  const [nome, setNome] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [produto, setProduto] = React.useState("");
-  const [cor, setCor] = React.useState("");
-  const [carro, setCarro] = React.useState([]);
-  const [termos, setTermos] = React.useState([]);
-  if(termos.length>0){
-    console.log("termos aceitos")
+  const [cep, setCep] = React.useState("");
+  const[error,setError]=React.useState(null)
+  function validateCep(value) {
+    if(value.length === 0){
+      setError('Preencha um valor')
+      return false
+    }else if (!/^\d{5}-?\d{3}$/.test(value)){
+      setError('Preencha um CEP válido')
+      return false
+    }else{
+      setError(null)
+      return true
+    }
+    
+  }
+  function handleBlur({ target }) {
+   validateCep(target.value)
+
+  }
+  function handleChange({ target }) {
+    if(error) validateCep(target.value)
+    setCep(target.value);
+  }
+  function handleSubmit(event) {
+    event.preventDefault();
+    if(validateCep(cep)){
+      console.log('Enviado')
+    }else{
+      console.log('Não enviado ')
+    }
   }
 
   return (
-    <form>
-      <h3>Termos</h3>
-      <Checkbox
-        options={["Li e aceito os termos de uso"]}
-        value={termos}
-        setValue={setTermos}
+    <form onSubmit={handleSubmit}>
+      <Input
+        id="cep"
+        label="Cep"
+        value={cep}
+        onChange={handleChange}        placeholder="00000-000"
+        onBlur={handleBlur}
       />
-      <h3>Selecione o(s) seu(s) carro</h3>
-      <Checkbox
-        options={["polo", "onix", "argo", "208"]}
-        value={carro}
-        setValue={setCarro}
-      />
-      <h3>Selecione sua cor favorita</h3>
-      <Radio
-        options={["verde", "azul", "vermelho"]}
-        value={cor}
-        setValue={setCor}
-      />
-      <h3>Selecione o tipo do seu dispositivo</h3>
+      {error &&<p>{error}</p>}
 
-      <Select
-        options={["smartphone", "televisao", "tablet"]}
-        value={produto}
-        setValue={setProduto}
-      />
-      <Input id="nome" label="Nome" value={nome} setValue={setNome} required />
-      <Input id="email" label="Email" value={email} setValue={setEmail} />
       <button>Enviar</button>
     </form>
   );
