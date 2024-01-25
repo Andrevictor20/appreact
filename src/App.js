@@ -1,21 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-
-const Titulo = styled.h1`
-  font-size: 2rem;
-  color: blue;
-`;
-
-const Paragrafo = styled.p`
-  font-size: 1.5rem;
-  color: red;
-`
+import React from 'react';
 
 const App = () => {
   return (
-    <div>
-      <Titulo>Meu App</Titulo>
-      <Paragrafo>Paragrafo</Paragrafo>
+    <div className="card bg-dark text-white m-5" style={{ maxWidth: '18rem' }}>
+      <div className="card-header">Notebook</div>
+      <div className="card-body">
+        <h5 className="card-title">R$ 2500</h5>
+        <p className="card-text">
+          Esse é um notebook com 1tb, 16gb de ram e placa de vídeo RTX3080.
+        </p>
+      </div>
     </div>
   );
 };
