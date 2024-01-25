@@ -36,19 +36,45 @@ const perguntas = [
 ];
 
 const App = () => {
-  const [respostas, setResostas] = React.useState({
+  const [respostas, setRespostas] = React.useState({
     p1: "",
     p2: "",
     p3: "",
     p4: "",
   });
+  const [slide, setSlide] = React.useState(0);
+  const [resultado, setResultado] = React.useState(null);
+
+  function handleChange({ target }) {
+    setRespostas({ ...respostas, [target.id]: target.value });
+    
+  }
+  function mostrarResultado(){
+      const corretas = perguntas.filter(({id,resposta}) =>respostas[id]===resposta) 
+      setResultado(`Voce acertou: ${corretas.length} de ${perguntas.length}`);
+  }
+  function handleCLick() {
+    if (slide < perguntas.length-1) {
+      setSlide(slide + 1);
+    }else{
+      setSlide(slide + 1);
+      mostrarResultado()
+    }
+  }
   return (
     <>
-      <form >
-        {perguntas.map((pergunta) => (
-          <Radio {...pergunta}/>
+      <form onSubmit={(e) => e.preventDefault()}>
+        {perguntas.map((pergunta, index) => (
+          <Radio
+            active={slide === index}
+            key={pergunta.id}
+            onChange={handleChange}
+            value={respostas[pergunta.id]}
+            {...pergunta}
+          />
         ))}
-        <button>Próxima</button>
+        {resultado? <p>{resultado}</p>:<button onClick={handleCLick}>Próxima</button>}
+        
       </form>
     </>
   );
