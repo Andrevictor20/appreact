@@ -10,7 +10,7 @@ const Produto = () => {
     <div>
       <h1>Produto: {params.id}</h1>
       <nav>
-        <NavLink to="descricao">Descricão</NavLink> {""}
+        <NavLink to="descricao" end>Descricão</ NavLink> {""}
         <NavLink to="avaliacao">Avaliação</NavLink>
       </nav>
       <Routes>
